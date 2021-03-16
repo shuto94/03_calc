@@ -1,12 +1,27 @@
 <?php
-$num1 = $_POST['num1'];
-$num2 = $_POST['num2'];
-$operator = $_POST['operator'];
+$num1 = '';
+$num2 = '';
+$operator = '';
 
-$addition = $num1 + $num2;
-$subtraction = $num1 - $num2;
-$multiplication = $num1 * $num2;
-$division = $num1 / $num2;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $num1 = $_POST['num1'];
+    $num2 = $_POST['num2'];
+    $operator = $_POST['operator'];
+    switch ($operator) {
+    case '+':
+        $answer = $num1 + $num2;
+        break;
+    case '-':
+        $answer = $num1 - $num2;
+        break;
+    case '×':
+        $answer = $num1 * $num2;
+        break;
+    case '÷':
+        $answer = $num1 / $num2;
+        break;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,23 +33,7 @@ $division = $num1 / $num2;
 </head>
 <body>
     <h1>計算結果</h1>
-<?php
-    switch ($operator) {
-    case '+':
-        echo "{$num1} + {$num2} = {$addition}";
-        break;
-    case '-':
-        echo "{$num1} - {$num2} = {$subtraction}";
-        break;
-    case '×':
-        echo "{$num1} × {$num2} = {$multiplication}";
-        break;
-    default:
-        echo "{$num1} ÷ {$num2} = {$division}";
-        break;
-}
-?>
-<br>
+<p><?= $num1 . $operator . $num2 . '=' . $answer ?></p>
 <a href="calc_form.php">戻る</a>
 </body>
 </html>
